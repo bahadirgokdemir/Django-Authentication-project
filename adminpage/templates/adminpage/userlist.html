@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+  <h2>User List</h2>
+  <table border="1">
+      <thead>
+          <tr>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Date Joined</th>
+              <th>Last Login</th>
+              <th>Login Time</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for row in results %}
+              <tr>
+                  <td>{{ row.0 }}</td>
+                  <td>{{ row.1 }}</td>
+                  <td>{{ row.2 }}</td>
+                  <td>{{ row.3 }}</td>
+                  <td>{{ row.4 }}</td>
+                  <td>{{ row.5 }}</td>
+                  <td>
+                      {% if row.5 %}
+                          {% with last_login=row.5 %}
+                              ({{ last_login|timesince }} ago)
+                          {% endwith %}
+                      {% else %}
+                          Never logged in
+                      {% endif %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</body>
+</html>

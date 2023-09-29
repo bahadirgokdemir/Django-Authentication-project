@@ -1,0 +1,18 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=bahadr
+Group=www-data
+WorkingDirectory=/home/bahadr/my_site
+ExecStart=/home/bahadr/my_site/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          mysite.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
